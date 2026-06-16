@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8" />
+  <title>Kontext Pipeline — édition d'images</title>
+  <link rel="stylesheet" href="/assets/style.css" />
+</head>
+<body>
+  <main>
+    <h1>Édition d'image — FLUX.1 Kontext</h1>
+
+    <form id="edit-form">
+      <label class="drop" id="drop">
+        <input type="file" id="images" name="images" accept="image/*" multiple required hidden />
+        <span>Déposer ou cliquer pour choisir des images</span>
+      </label>
+      <div id="thumbs" class="thumbs"></div>
+
+      <label>Prompt
+        <textarea id="prompt" name="prompt" rows="3" required
+          placeholder="Ex: remove background, A-pose, clean white studio"></textarea>
+      </label>
+
+      <div class="row">
+        <label>Steps <input type="number" id="steps" name="steps" value="24" min="1" max="60" /></label>
+        <label>Guidance <input type="number" id="guidance" name="guidance" value="2.5" min="0" max="10" step="0.1" /></label>
+        <label>Seed <input type="number" id="seed" name="seed" value="-1" /></label>
+      </div>
+
+      <button type="submit">Lancer l'édition</button>
+    </form>
+
+    <section id="progress" class="hidden">
+      <h2>Avancement</h2>
+      <ul id="status-list"></ul>
+    </section>
+
+    <section id="results" class="hidden">
+      <h2>Résultats</h2>
+      <div id="gallery" class="gallery"></div>
+    </section>
+  </main>
+
+  <script src="/assets/app.js"></script>
+</body>
+</html>

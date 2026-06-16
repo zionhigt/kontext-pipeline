@@ -1,0 +1,95 @@
+{
+  "_comment": "Template Kontext Save (API Format) — À REMPLACER par un export réel depuis ComfyUI (Dev Mode → Save (API Format)). Les IDs de nodes utilisés ici (LOAD_IMAGE, PROMPT_TEXT, KSAMPLER, FLUX_GUIDANCE) doivent correspondre à ceux référencés dans backend/app.py. Si vous exportez avec des IDs numériques (cas par défaut ComfyUI), renommer les clés ou ajuster les constantes NODE_* dans app.py.",
+  "LOAD_IMAGE": {
+    "class_type": "LoadImage",
+    "inputs": {
+      "image": "PLACEHOLDER.png",
+      "upload": "image"
+    }
+  },
+  "CLIP_LOADER": {
+    "class_type": "DualCLIPLoader",
+    "inputs": {
+      "clip_name1": "t5xxl_fp8_e4m3fn.safetensors",
+      "clip_name2": "clip_l.safetensors",
+      "type": "flux"
+    }
+  },
+  "VAE_LOADER": {
+    "class_type": "VAELoader",
+    "inputs": {
+      "vae_name": "ae.safetensors"
+    }
+  },
+  "UNET_LOADER": {
+    "class_type": "UNETLoader",
+    "inputs": {
+      "unet_name": "flux1-kontext-dev-fp8-scaled.safetensors",
+      "weight_dtype": "default"
+    }
+  },
+  "PROMPT_TEXT": {
+    "class_type": "CLIPTextEncode",
+    "inputs": {
+      "text": "PLACEHOLDER PROMPT",
+      "clip": ["CLIP_LOADER", 0]
+    }
+  },
+  "NEG_PROMPT": {
+    "class_type": "CLIPTextEncode",
+    "inputs": {
+      "text": "",
+      "clip": ["CLIP_LOADER", 0]
+    }
+  },
+  "VAE_ENCODE": {
+    "class_type": "VAEEncode",
+    "inputs": {
+      "pixels": ["LOAD_IMAGE", 0],
+      "vae": ["VAE_LOADER", 0]
+    }
+  },
+  "FLUX_GUIDANCE": {
+    "class_type": "FluxGuidance",
+    "inputs": {
+      "conditioning": ["PROMPT_TEXT", 0],
+      "guidance": 2.5
+    }
+  },
+  "KONTEXT_REF": {
+    "class_type": "ReferenceLatent",
+    "inputs": {
+      "conditioning": ["FLUX_GUIDANCE", 0],
+      "latent": ["VAE_ENCODE", 0]
+    }
+  },
+  "KSAMPLER": {
+    "class_type": "KSampler",
+    "inputs": {
+      "model": ["UNET_LOADER", 0],
+      "positive": ["KONTEXT_REF", 0],
+      "negative": ["NEG_PROMPT", 0],
+      "latent_image": ["VAE_ENCODE", 0],
+      "seed": 0,
+      "steps": 24,
+      "cfg": 1.0,
+      "sampler_name": "euler",
+      "scheduler": "simple",
+      "denoise": 1.0
+    }
+  },
+  "VAE_DECODE": {
+    "class_type": "VAEDecode",
+    "inputs": {
+      "samples": ["KSAMPLER", 0],
+      "vae": ["VAE_LOADER", 0]
+    }
+  },
+  "SAVE_IMAGE": {
+    "class_type": "SaveImage",
+    "inputs": {
+      "images": ["VAE_DECODE", 0],
+      "filename_prefix": "kontext_out"
+    }
+  }
+}
