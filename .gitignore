@@ -1,0 +1,13 @@
+__pycache__/
+*.pyc
+*.pyo
+.venv/
+venv/
+ComfyUI/
+data/
+*.safetensors
+*.ckpt
+*.bin
+.env
+.idea/
+.vscode/
