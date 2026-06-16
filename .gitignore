@@ -11,3 +11,4 @@ data/
 .env
 .idea/
 .vscode/
+extra_model_paths.yaml

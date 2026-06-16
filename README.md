@@ -68,6 +68,16 @@ Dépôt gated HuggingFace `black-forest-labs/FLUX.1-Kontext-dev` — accepter la
 | `t5xxl_fp8_e4m3fn.safetensors` | `ComfyUI/models/text_encoders/` |
 | `ae.safetensors` (VAE) | `ComfyUI/models/vae/` |
 
+#### Stocker les modèles sur un autre disque
+
+Plutôt que de les placer dans `ComfyUI/models/`, vous pouvez les stocker n'importe où (ex. `D:\IA\models\`) :
+
+1. Copier `extra_model_paths.yaml.example` → `extra_model_paths.yaml` (à la racine du projet, ignoré par git).
+2. Adapter `base_path` dans le YAML.
+3. Lancer `scripts\start_comfy.bat` : il détecte le fichier et le passe à ComfyUI via `--extra-model-paths-config`.
+
+ComfyUI fusionne ces chemins avec ses dossiers natifs, donc vous pouvez n'externaliser que les fichiers volumineux.
+
 ### Template workflow
 
 `workflows/kontext_api_template.json` est un **modèle indicatif**. Pour garantir la cohérence des `class_type` / liens entre nodes :
