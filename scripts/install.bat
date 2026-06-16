@@ -6,6 +6,9 @@ REM ============================================================
 
 setlocal
 
+REM Se placer a la racine du projet (le dossier parent de scripts\)
+cd /d "%~dp0.."
+
 echo [1/6] Creation env conda 'kontext' (Python 3.10)...
 call conda create -n kontext python=3.10 -y || goto :err
 call conda activate kontext || goto :err
