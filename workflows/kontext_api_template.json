@@ -1,5 +1,4 @@
 {
-  "_comment": "Template Kontext Save (API Format) — À REMPLACER par un export réel depuis ComfyUI (Dev Mode → Save (API Format)). Les IDs de nodes utilisés ici (LOAD_IMAGE, PROMPT_TEXT, KSAMPLER, FLUX_GUIDANCE) doivent correspondre à ceux référencés dans backend/app.py. Si vous exportez avec des IDs numériques (cas par défaut ComfyUI), renommer les clés ou ajuster les constantes NODE_* dans app.py.",
   "LOAD_IMAGE": {
     "class_type": "LoadImage",
     "inputs": {
