@@ -23,8 +23,8 @@
   "UNET_LOADER": {
     "class_type": "UNETLoader",
     "inputs": {
-      "unet_name": "flux1-kontext-dev-fp8-scaled.safetensors",
-      "weight_dtype": "default"
+      "unet_name": "flux1-kontext-dev.safetensors",
+      "weight_dtype": "fp8_e4m3fn"
     }
   },
   "PROMPT_TEXT": {
