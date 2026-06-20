@@ -17,9 +17,9 @@ echo [2/6] pip up-to-date...
 python -m pip install --upgrade pip || goto :err
 
 echo [3/6] PyTorch 2.6.0 + CUDA 12.4 (NE PAS retirer --index-url, cf. CDC §3.2)...
-pip install torch==2.6.0 torchvision --index-url https://download.pytorch.org/whl/cu124 || (
+pip install torch==2.6.0 torchvision torchaudio --index-url https://download.pytorch.org/whl/cu124 || (
   echo torch 2.6.0+cu124 indisponible, repli sur 2.7.0+cu124
-  pip install torch==2.7.0 torchvision --index-url https://download.pytorch.org/whl/cu124 || goto :err
+  pip install torch==2.7.0 torchvision torchaudio --index-url https://download.pytorch.org/whl/cu124 || goto :err
 )
 
 echo [4/6] Clone ComfyUI...
